@@ -1,7 +1,7 @@
 name: flutter_time_duration_picker
-description: "A new Flutter package project."
+description: "A customizable time duration picker for Flutter that allows creating flexible time pickers with multiple columns"
 version: 0.1.0
-homepage:
+homepage: https://github.com/tushar-agrawal-21/flutter_time_duration_picker.git
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
