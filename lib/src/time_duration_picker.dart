@@ -67,7 +67,8 @@ class TimeDurationPickerState extends State<TimeDurationPicker> {
     for (var column in widget.columns) {
       int initialValue = _getInitialValue(column);
       _selectedValues[column.id] = ValueNotifier(initialValue);
-      _controllers[column.id] = FixedExtentScrollController(initialItem: initialValue);
+      _controllers[column.id] =
+          FixedExtentScrollController(initialItem: initialValue);
     }
   }
 
@@ -244,7 +245,7 @@ class TimeDurationPickerState extends State<TimeDurationPicker> {
           second = value;
           break;
         case TimeColumnType.custom:
-        // Custom columns don't affect DateTime
+          // Custom columns don't affect DateTime
           break;
       }
     }

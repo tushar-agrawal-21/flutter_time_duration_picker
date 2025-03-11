@@ -34,7 +34,7 @@ class TimeColumnConfig {
   /// Optional label for the column (e.g., "hr", "min")
   final String? label;
 
-   TimeColumnConfig({
+  TimeColumnConfig({
     required this.id,
     required this.type,
     this.minValue = 0,
@@ -45,8 +45,7 @@ class TimeColumnConfig {
     this.separatorWidth,
     this.valueFormatter,
     this.label,
-  }) :
-        maxValue = maxValue ?? _getDefaultMaxValue(type),
+  })  : maxValue = maxValue ?? _getDefaultMaxValue(type),
         defaultValue = defaultValue ?? 0;
 
   static int _getDefaultMaxValue(TimeColumnType type) {
@@ -108,7 +107,8 @@ class TimeColumnConfig {
       width: width,
       separator: separator,
       separatorWidth: separatorWidth,
-      valueFormatter: valueFormatter ?? ((value) => value < 10 ? '0$value' : value.toString()),
+      valueFormatter: valueFormatter ??
+          ((value) => value < 10 ? '0$value' : value.toString()),
       label: label,
     );
   }
@@ -134,7 +134,8 @@ class TimeColumnConfig {
       width: width,
       separator: separator,
       separatorWidth: separatorWidth,
-      valueFormatter: valueFormatter ?? ((value) => value < 10 ? '0$value' : value.toString()),
+      valueFormatter: valueFormatter ??
+          ((value) => value < 10 ? '0$value' : value.toString()),
       label: label,
     );
   }

@@ -50,9 +50,7 @@ class TimePickerColumn extends StatelessWidget {
 
     return Text(
       displayText,
-      style: isSelected
-          ? theme.selectedTextStyle
-          : theme.unselectedTextStyle,
+      style: isSelected ? theme.selectedTextStyle : theme.unselectedTextStyle,
       textAlign: TextAlign.center,
     );
   }

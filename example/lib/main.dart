@@ -62,7 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                       onChanged: (values) {
                         setState(() {
-                          selectedTime = _pickerKey.currentState?.getSelectedDateTime();
+                          selectedTime =
+                              _pickerKey.currentState?.getSelectedDateTime();
                         });
                       },
                     ),
