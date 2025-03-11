@@ -33,7 +33,7 @@ class TimeDurationPicker extends StatefulWidget {
   final double? width;
 
   const TimeDurationPicker({
-    Key? key,
+    super.key,
     this.initialTime,
     required this.columns,
     this.height = 168,
@@ -44,7 +44,7 @@ class TimeDurationPicker extends StatefulWidget {
     this.upperLinePosition,
     this.lowerLinePosition,
     this.width,
-  }) : super(key: key);
+  });
 
   @override
   State<TimeDurationPicker> createState() => TimeDurationPickerState();
