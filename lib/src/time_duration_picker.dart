@@ -46,7 +46,7 @@ class TimeDurationPicker extends StatefulWidget {
     this.lowerLinePosition,
     this.width,
   }) : assert(columns.length == controllers.length,
-  'Number of columns must match the number of controllers');
+            'Number of columns must match the number of controllers');
 
   @override
   State<TimeDurationPicker> createState() => _TimeDurationPickerState();

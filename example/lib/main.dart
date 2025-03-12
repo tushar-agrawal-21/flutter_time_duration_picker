@@ -48,43 +48,25 @@ class _MyHomePageState extends State<MyHomePage> {
     final now = DateTime.now();
 
     // Basic time picker controllers
-    hourController = TimeColumnController(
-        initialValue: now.hour,
-        minValue: 0,
-        maxValue: 23
-    );
+    hourController =
+        TimeColumnController(initialValue: now.hour, minValue: 0, maxValue: 23);
 
     minuteController = TimeColumnController(
-        initialValue: now.minute,
-        minValue: 0,
-        maxValue: 59
-    );
+        initialValue: now.minute, minValue: 0, maxValue: 59);
 
     // Advanced time picker controllers
-    advHourController = TimeColumnController(
-        initialValue: now.hour,
-        minValue: 0,
-        maxValue: 23
-    );
+    advHourController =
+        TimeColumnController(initialValue: now.hour, minValue: 0, maxValue: 23);
 
     advMinuteController = TimeColumnController(
-        initialValue: now.minute,
-        minValue: 0,
-        maxValue: 59
-    );
+        initialValue: now.minute, minValue: 0, maxValue: 59);
 
     advSecondController = TimeColumnController(
-        initialValue: now.second,
-        minValue: 0,
-        maxValue: 59
-    );
+        initialValue: now.second, minValue: 0, maxValue: 59);
 
     // Custom range picker controller
-    daysController = TimeColumnController(
-        initialValue: 0,
-        minValue: 0,
-        maxValue: 31
-    );
+    daysController =
+        TimeColumnController(initialValue: 0, minValue: 0, maxValue: 31);
   }
 
   @override
@@ -230,10 +212,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           valueListenable: advHourController.valueNotifier,
                           builder: (context, hourValue, _) {
                             return ValueListenableBuilder<int>(
-                              valueListenable: advMinuteController.valueNotifier,
+                              valueListenable:
+                                  advMinuteController.valueNotifier,
                               builder: (context, minuteValue, _) {
                                 return ValueListenableBuilder<int>(
-                                  valueListenable: advSecondController.valueNotifier,
+                                  valueListenable:
+                                      advSecondController.valueNotifier,
                                   builder: (context, secondValue, _) {
                                     return Text(
                                       'Selected time: $hourValue:${minuteValue.toString().padLeft(2, '0')}:${secondValue.toString().padLeft(2, '0')}',
@@ -251,17 +235,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: () {
                           // Animate to random time
                           advHourController.animateTo(
-                            (DateTime.now().millisecondsSinceEpoch % 24).toInt(),
+                            (DateTime.now().millisecondsSinceEpoch % 24)
+                                .toInt(),
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeInOut,
                           );
                           advMinuteController.animateTo(
-                            (DateTime.now().millisecondsSinceEpoch % 60).toInt(),
+                            (DateTime.now().millisecondsSinceEpoch % 60)
+                                .toInt(),
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeInOut,
                           );
                           advSecondController.animateTo(
-                            (DateTime.now().millisecondsSinceEpoch % 60).toInt(),
+                            (DateTime.now().millisecondsSinceEpoch % 60)
+                                .toInt(),
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeInOut,
                           );

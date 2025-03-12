@@ -19,10 +19,9 @@ class TimeColumnController {
     int initialValue = 0,
     required this.minValue,
     required this.maxValue,
-  }) : _value = initialValue.clamp(minValue, maxValue),
+  })  : _value = initialValue.clamp(minValue, maxValue),
         scrollController = FixedExtentScrollController(
-            initialItem: initialValue.clamp(minValue, maxValue) - minValue
-        ),
+            initialItem: initialValue.clamp(minValue, maxValue) - minValue),
         valueNotifier = ValueNotifier(initialValue.clamp(minValue, maxValue));
 
   /// Current value of the column
@@ -43,10 +42,10 @@ class TimeColumnController {
 
   /// Animate to a specific value
   Future<void> animateTo(
-      int value, {
-        required Duration duration,
-        required Curve curve,
-      }) async {
+    int value, {
+    required Duration duration,
+    required Curve curve,
+  }) async {
     final clampedValue = value.clamp(minValue, maxValue);
     _value = clampedValue;
     valueNotifier.value = clampedValue;
