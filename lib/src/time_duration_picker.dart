@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'time_picker_column.dart';
 import 'time_column_config.dart';
 import 'time_picker_theme.dart';
+import 'time_column_controller.dart';
 
 class TimeDurationPicker extends StatefulWidget {
-  /// Initial time to display in the picker
-  final DateTime? initialTime;
-
   /// List of column configurations that define the picker structure
   final List<TimeColumnConfig> columns;
+
+  /// List of controllers for each column
+  final List<TimeColumnController> controllers;
 
   /// Height of the picker widget
   final double height;
@@ -20,7 +21,7 @@ class TimeDurationPicker extends StatefulWidget {
   final TimeDurationPickerTheme theme;
 
   /// Callback when time values change
-  final Function(Map<String, int> values)? onChanged;
+  final Function(List<int> values)? onChanged;
 
   /// Show separator lines
   final bool showSeparatorLines;
@@ -34,8 +35,8 @@ class TimeDurationPicker extends StatefulWidget {
 
   const TimeDurationPicker({
     super.key,
-    this.initialTime,
     required this.columns,
+    required this.controllers,
     this.height = 168,
     this.columnSpacing = 12.0,
     this.theme = const TimeDurationPickerTheme(),
@@ -44,68 +45,14 @@ class TimeDurationPicker extends StatefulWidget {
     this.upperLinePosition,
     this.lowerLinePosition,
     this.width,
-  });
+  }) : assert(columns.length == controllers.length,
+  'Number of columns must match the number of controllers');
 
   @override
-  State<TimeDurationPicker> createState() => TimeDurationPickerState();
+  State<TimeDurationPicker> createState() => _TimeDurationPickerState();
 }
 
-class TimeDurationPickerState extends State<TimeDurationPicker> {
-  late Map<String, ValueNotifier<int>> _selectedValues;
-  late Map<String, FixedExtentScrollController> _controllers;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeControllers();
-  }
-
-  void _initializeControllers() {
-    _selectedValues = {};
-    _controllers = {};
-
-    for (var column in widget.columns) {
-      int initialValue = _getInitialValue(column);
-      _selectedValues[column.id] = ValueNotifier(initialValue);
-      _controllers[column.id] =
-          FixedExtentScrollController(initialItem: initialValue);
-    }
-  }
-
-  int _getInitialValue(TimeColumnConfig column) {
-    if (widget.initialTime == null) return column.defaultValue;
-
-    switch (column.type) {
-      case TimeColumnType.hour:
-        return widget.initialTime!.hour;
-      case TimeColumnType.minute:
-        return widget.initialTime!.minute;
-      case TimeColumnType.second:
-        return widget.initialTime!.second;
-      case TimeColumnType.custom:
-        return column.defaultValue;
-    }
-  }
-
-  @override
-  void didUpdateWidget(TimeDurationPicker oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    // If columns configuration has changed, reinitialize controllers
-    if (oldWidget.columns.length != widget.columns.length ||
-        oldWidget.initialTime != widget.initialTime) {
-      _initializeControllers();
-    }
-  }
-
-  @override
-  void dispose() {
-    for (var controller in _controllers.values) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
+class _TimeDurationPickerState extends State<TimeDurationPicker> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -157,22 +104,17 @@ class TimeDurationPickerState extends State<TimeDurationPicker> {
 
     for (int i = 0; i < widget.columns.length; i++) {
       final column = widget.columns[i];
+      final controller = widget.controllers[i];
 
       // Add the column
       columnWidgets.add(
         TimePickerColumn(
-          controller: _controllers[column.id]!,
-          valueNotifier: _selectedValues[column.id]!,
+          controller: controller,
           config: column,
           theme: widget.theme,
-          onSelectedItemChanged: (value) {
-            _selectedValues[column.id]!.value = value;
-
+          onValueChanged: (value) {
             if (widget.onChanged != null) {
-              Map<String, int> values = {};
-              for (var entry in _selectedValues.entries) {
-                values[entry.key] = entry.value.value;
-              }
+              final values = widget.controllers.map((c) => c.value).toList();
               widget.onChanged!(values);
             }
           },
@@ -212,61 +154,5 @@ class TimeDurationPickerState extends State<TimeDurationPicker> {
     }
 
     return columnWidgets;
-  }
-
-  /// Get all current selected values as a map
-  Map<String, int> getSelectedValues() {
-    Map<String, int> values = {};
-    for (var entry in _selectedValues.entries) {
-      values[entry.key] = entry.value.value;
-    }
-    return values;
-  }
-
-  /// Get selected time as DateTime object
-  DateTime getSelectedDateTime() {
-    final now = DateTime.now();
-
-    int hour = 0;
-    int minute = 0;
-    int second = 0;
-
-    for (var column in widget.columns) {
-      int value = _selectedValues[column.id]!.value;
-
-      switch (column.type) {
-        case TimeColumnType.hour:
-          hour = value;
-          break;
-        case TimeColumnType.minute:
-          minute = value;
-          break;
-        case TimeColumnType.second:
-          second = value;
-          break;
-        case TimeColumnType.custom:
-          // Custom columns don't affect DateTime
-          break;
-      }
-    }
-
-    return DateTime(
-      now.year,
-      now.month,
-      now.day,
-      hour,
-      minute,
-      second,
-    );
-  }
-
-  /// Jump to specific values for each column
-  void jumpToValues(Map<String, int> values) {
-    values.forEach((columnId, value) {
-      if (_controllers.containsKey(columnId)) {
-        _controllers[columnId]!.jumpToItem(value);
-        _selectedValues[columnId]!.value = value;
-      }
-    });
   }
 }

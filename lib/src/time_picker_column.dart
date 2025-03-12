@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'time_column_config.dart';
 import 'time_picker_theme.dart';
+import 'time_column_controller.dart';
 
 class TimePickerColumn extends StatelessWidget {
-  final FixedExtentScrollController controller;
-  final ValueNotifier<int> valueNotifier;
+  final TimeColumnController controller;
   final TimeColumnConfig config;
   final TimeDurationPickerTheme theme;
-  final Function(int) onSelectedItemChanged;
+  final Function(int)? onValueChanged;
 
   const TimePickerColumn({
-    Key? key,
+    super.key,
     required this.controller,
-    required this.valueNotifier,
     required this.config,
     required this.theme,
-    required this.onSelectedItemChanged,
-  }) : super(key: key);
+    this.onValueChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +23,21 @@ class TimePickerColumn extends StatelessWidget {
       width: config.width,
       child: ListWheelScrollView.useDelegate(
         itemExtent: theme.itemExtent,
-        controller: controller,
+        controller: controller.scrollController,
         physics: const FixedExtentScrollPhysics(),
-        onSelectedItemChanged: onSelectedItemChanged,
+        onSelectedItemChanged: (index) {
+          final actualValue = index + config.minValue;
+          controller.updateValueFromScrollPosition(actualValue);
+          if (onValueChanged != null) {
+            onValueChanged!(actualValue);
+          }
+        },
         childDelegate: ListWheelChildBuilderDelegate(
           childCount: config.maxValue - config.minValue + 1,
           builder: (context, index) {
             final actualValue = index + config.minValue;
             return ValueListenableBuilder<int>(
-              valueListenable: valueNotifier,
+              valueListenable: controller.valueNotifier,
               builder: (context, selectedValue, _) {
                 return _buildItem(actualValue, selectedValue == actualValue);
               },

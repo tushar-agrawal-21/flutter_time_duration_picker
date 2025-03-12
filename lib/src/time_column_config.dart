@@ -1,3 +1,5 @@
+import 'time_column_controller.dart';
+
 enum TimeColumnType {
   hour,
   minute,
@@ -179,6 +181,14 @@ class TimeColumnConfig {
       maxValue: 0,
       width: width,
       valueFormatter: (_) => text,
+    );
+  }
+
+  TimeColumnController createController({int? initialValue}) {
+    return TimeColumnController(
+      initialValue: initialValue ?? defaultValue,
+      minValue: minValue,
+      maxValue: maxValue,
     );
   }
 }
