@@ -110,11 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       TimeDurationPicker(
                         columns: [
                           TimeColumnConfig.hours(
+                            controller: hourController,
                             separator: ':',
                           ),
-                          TimeColumnConfig.minutes(),
+                          TimeColumnConfig.minutes(
+                            controller: minuteController
+                          ),
                         ],
-                        controllers: [hourController, minuteController],
                         onChanged: (values) {
                           setState(() {
                             // State will update from ValueNotifier
@@ -190,20 +192,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           TimeColumnConfig.hours(
                             separator: 'h',
                             separatorWidth: 20,
+                            controller: advHourController
                           ),
                           TimeColumnConfig.minutes(
                             separator: 'm',
                             separatorWidth: 20,
+                            controller: advMinuteController
                           ),
                           TimeColumnConfig.seconds(
                             separator: 's',
                             separatorWidth: 20,
+                            controller: advSecondController
                           ),
-                        ],
-                        controllers: [
-                          advHourController,
-                          advMinuteController,
-                          advSecondController
                         ],
                       ),
                       Padding(
@@ -277,17 +277,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             minValue: 0,
                             maxValue: 31,
                             width: 40,
+                            controller: daysController
                           ),
                           TimeColumnConfig.label(
                             id: 'daysLabel',
                             text: 'days',
                             width: 50,
                           ),
-                        ],
-                        controllers: [
-                          daysController,
-                          // For the label column, create a dummy controller that won't be used for interaction
-                          TimeColumnController(minValue: 0, maxValue: 0)
                         ],
                       ),
                       Padding(

@@ -11,6 +11,9 @@ class TimeColumnConfig {
   /// Unique identifier for this column
   final String id;
 
+  ///Controller for this column
+  final TimeColumnController controller;
+
   /// Type of time column
   final TimeColumnType type;
 
@@ -37,6 +40,7 @@ class TimeColumnConfig {
   final String? label;
 
   TimeColumnConfig({
+    required this.controller,
     required this.id,
     required this.type,
     this.minValue = 0,
@@ -73,6 +77,7 @@ class TimeColumnConfig {
     double? separatorWidth,
     String Function(int)? valueFormatter,
     String? label,
+    required TimeColumnController controller
   }) {
     return TimeColumnConfig(
       id: id,
@@ -85,6 +90,7 @@ class TimeColumnConfig {
       separatorWidth: separatorWidth,
       valueFormatter: valueFormatter,
       label: label,
+      controller: controller
     );
   }
 
@@ -99,6 +105,7 @@ class TimeColumnConfig {
     double? separatorWidth,
     String Function(int)? valueFormatter,
     String? label,
+    required TimeColumnController controller
   }) {
     return TimeColumnConfig(
       id: id,
@@ -112,6 +119,7 @@ class TimeColumnConfig {
       valueFormatter: valueFormatter ??
           ((value) => value < 10 ? '0$value' : value.toString()),
       label: label,
+        controller: controller
     );
   }
 
@@ -126,6 +134,7 @@ class TimeColumnConfig {
     double? separatorWidth,
     String Function(int)? valueFormatter,
     String? label,
+    required TimeColumnController controller
   }) {
     return TimeColumnConfig(
       id: id,
@@ -139,6 +148,7 @@ class TimeColumnConfig {
       valueFormatter: valueFormatter ??
           ((value) => value < 10 ? '0$value' : value.toString()),
       label: label,
+        controller: controller
     );
   }
 
@@ -153,6 +163,7 @@ class TimeColumnConfig {
     double? separatorWidth,
     String Function(int)? valueFormatter,
     String? label,
+    required TimeColumnController controller
   }) {
     return TimeColumnConfig(
       id: id,
@@ -165,6 +176,7 @@ class TimeColumnConfig {
       separatorWidth: separatorWidth,
       valueFormatter: valueFormatter,
       label: label,
+        controller: controller
     );
   }
 
@@ -180,6 +192,7 @@ class TimeColumnConfig {
       minValue: 0,
       maxValue: 0,
       width: width,
+      controller: TimeColumnController(minValue: 0, maxValue: 0),
       valueFormatter: (_) => text,
     );
   }

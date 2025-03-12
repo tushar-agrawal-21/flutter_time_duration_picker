@@ -8,9 +8,6 @@ class TimeDurationPicker extends StatefulWidget {
   /// List of column configurations that define the picker structure
   final List<TimeColumnConfig> columns;
 
-  /// List of controllers for each column
-  final List<TimeColumnController> controllers;
-
   /// Height of the picker widget
   final double height;
 
@@ -36,7 +33,6 @@ class TimeDurationPicker extends StatefulWidget {
   const TimeDurationPicker({
     super.key,
     required this.columns,
-    required this.controllers,
     this.height = 168,
     this.columnSpacing = 12.0,
     this.theme = const TimeDurationPickerTheme(),
@@ -45,8 +41,7 @@ class TimeDurationPicker extends StatefulWidget {
     this.upperLinePosition,
     this.lowerLinePosition,
     this.width,
-  }) : assert(columns.length == controllers.length,
-            'Number of columns must match the number of controllers');
+  });
 
   @override
   State<TimeDurationPicker> createState() => _TimeDurationPickerState();
@@ -104,17 +99,16 @@ class _TimeDurationPickerState extends State<TimeDurationPicker> {
 
     for (int i = 0; i < widget.columns.length; i++) {
       final column = widget.columns[i];
-      final controller = widget.controllers[i];
 
       // Add the column
       columnWidgets.add(
         TimePickerColumn(
-          controller: controller,
+          controller: column.controller,
           config: column,
           theme: widget.theme,
           onValueChanged: (value) {
             if (widget.onChanged != null) {
-              final values = widget.controllers.map((c) => c.value).toList();
+              final values = widget.columns.map((c) => c.controller.value).toList();
               widget.onChanged!(values);
             }
           },
