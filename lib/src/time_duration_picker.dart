@@ -108,7 +108,8 @@ class _TimeDurationPickerState extends State<TimeDurationPicker> {
           theme: widget.theme,
           onValueChanged: (value) {
             if (widget.onChanged != null) {
-              final values = widget.columns.map((c) => c.controller.value).toList();
+              final values =
+                  widget.columns.map((c) => c.controller.value).toList();
               widget.onChanged!(values);
             }
           },

@@ -114,8 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             separator: ':',
                           ),
                           TimeColumnConfig.minutes(
-                            controller: minuteController
-                          ),
+                              controller: minuteController),
                         ],
                         onChanged: (values) {
                           setState(() {
@@ -190,20 +189,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         columns: [
                           TimeColumnConfig.hours(
-                            separator: 'h',
-                            separatorWidth: 20,
-                            controller: advHourController
-                          ),
+                              separator: 'h',
+                              separatorWidth: 20,
+                              controller: advHourController),
                           TimeColumnConfig.minutes(
-                            separator: 'm',
-                            separatorWidth: 20,
-                            controller: advMinuteController
-                          ),
+                              separator: 'm',
+                              separatorWidth: 20,
+                              controller: advMinuteController),
                           TimeColumnConfig.seconds(
-                            separator: 's',
-                            separatorWidth: 20,
-                            controller: advSecondController
-                          ),
+                              separator: 's',
+                              separatorWidth: 20,
+                              controller: advSecondController),
                         ],
                       ),
                       Padding(
@@ -273,12 +269,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       TimeDurationPicker(
                         columns: [
                           TimeColumnConfig.custom(
-                            id: 'days',
-                            minValue: 0,
-                            maxValue: 31,
-                            width: 40,
-                            controller: daysController
-                          ),
+                              id: 'days',
+                              minValue: 0,
+                              maxValue: 31,
+                              width: 40,
+                              controller: daysController),
                           TimeColumnConfig.label(
                             id: 'daysLabel',
                             text: 'days',

@@ -67,117 +67,109 @@ class TimeColumnConfig {
   }
 
   /// Factory for creating an hours column
-  factory TimeColumnConfig.hours({
-    String id = 'hours',
-    int minValue = 0,
-    int maxValue = 23,
-    int defaultValue = 0,
-    double width = 40,
-    String? separator,
-    double? separatorWidth,
-    String Function(int)? valueFormatter,
-    String? label,
-    required TimeColumnController controller
-  }) {
+  factory TimeColumnConfig.hours(
+      {String id = 'hours',
+      int minValue = 0,
+      int maxValue = 23,
+      int defaultValue = 0,
+      double width = 40,
+      String? separator,
+      double? separatorWidth,
+      String Function(int)? valueFormatter,
+      String? label,
+      required TimeColumnController controller}) {
     return TimeColumnConfig(
-      id: id,
-      type: TimeColumnType.hour,
-      minValue: minValue,
-      maxValue: maxValue,
-      defaultValue: defaultValue,
-      width: width,
-      separator: separator,
-      separatorWidth: separatorWidth,
-      valueFormatter: valueFormatter,
-      label: label,
-      controller: controller
-    );
+        id: id,
+        type: TimeColumnType.hour,
+        minValue: minValue,
+        maxValue: maxValue,
+        defaultValue: defaultValue,
+        width: width,
+        separator: separator,
+        separatorWidth: separatorWidth,
+        valueFormatter: valueFormatter,
+        label: label,
+        controller: controller);
   }
 
   /// Factory for creating a minutes column
-  factory TimeColumnConfig.minutes({
-    String id = 'minutes',
-    int minValue = 0,
-    int maxValue = 59,
-    int defaultValue = 0,
-    double width = 40,
-    String? separator,
-    double? separatorWidth,
-    String Function(int)? valueFormatter,
-    String? label,
-    required TimeColumnController controller
-  }) {
+  factory TimeColumnConfig.minutes(
+      {String id = 'minutes',
+      int minValue = 0,
+      int maxValue = 59,
+      int defaultValue = 0,
+      double width = 40,
+      String? separator,
+      double? separatorWidth,
+      String Function(int)? valueFormatter,
+      String? label,
+      required TimeColumnController controller}) {
     return TimeColumnConfig(
-      id: id,
-      type: TimeColumnType.minute,
-      minValue: minValue,
-      maxValue: maxValue,
-      defaultValue: defaultValue,
-      width: width,
-      separator: separator,
-      separatorWidth: separatorWidth,
-      valueFormatter: valueFormatter ??
-          ((value) => value < 10 ? '0$value' : value.toString()),
-      label: label,
-        controller: controller
-    );
+        id: id,
+        type: TimeColumnType.minute,
+        minValue: minValue,
+        maxValue: maxValue,
+        defaultValue: defaultValue,
+        width: width,
+        separator: separator,
+        separatorWidth: separatorWidth,
+        valueFormatter: valueFormatter ??
+            ((value) => value < 10 ? '0$value' : value.toString()),
+        label: label,
+        controller: controller);
   }
 
   /// Factory for creating a seconds column
-  factory TimeColumnConfig.seconds({
-    String id = 'seconds',
-    int minValue = 0,
-    int maxValue = 59,
-    int defaultValue = 0,
-    double width = 40,
-    String? separator,
-    double? separatorWidth,
-    String Function(int)? valueFormatter,
-    String? label,
-    required TimeColumnController controller
-  }) {
+  factory TimeColumnConfig.seconds(
+      {String id = 'seconds',
+      int minValue = 0,
+      int maxValue = 59,
+      int defaultValue = 0,
+      double width = 40,
+      String? separator,
+      double? separatorWidth,
+      String Function(int)? valueFormatter,
+      String? label,
+      required TimeColumnController controller}) {
     return TimeColumnConfig(
-      id: id,
-      type: TimeColumnType.second,
-      minValue: minValue,
-      maxValue: maxValue,
-      defaultValue: defaultValue,
-      width: width,
-      separator: separator,
-      separatorWidth: separatorWidth,
-      valueFormatter: valueFormatter ??
-          ((value) => value < 10 ? '0$value' : value.toString()),
-      label: label,
-        controller: controller
-    );
+        id: id,
+        type: TimeColumnType.second,
+        minValue: minValue,
+        maxValue: maxValue,
+        defaultValue: defaultValue,
+        width: width,
+        separator: separator,
+        separatorWidth: separatorWidth,
+        valueFormatter: valueFormatter ??
+            ((value) => value < 10 ? '0$value' : value.toString()),
+        label: label,
+        controller: controller);
   }
 
   /// Factory for creating a custom column
-  factory TimeColumnConfig.custom({
-    required String id,
-    int minValue = 0,
-    required int maxValue,
-    int defaultValue = 0,
-    double width = 40,
-    String? separator,
-    double? separatorWidth,
-    String Function(int)? valueFormatter,
-    String? label,
-    required TimeColumnController controller
-  }) {
+  factory TimeColumnConfig.custom(
+      {required String id,
+      int minValue = 0,
+      required int maxValue,
+      int defaultValue = 0,
+      double width = 40,
+      String? separator,
+      double? separatorWidth,
+      String Function(int)? valueFormatter,
+      String? label,
+      required TimeColumnController controller}) {
     return TimeColumnConfig(
-      id: id,
-      type: TimeColumnType.custom,
-      minValue: minValue,
-      maxValue: maxValue,
-      defaultValue: defaultValue,
-      width: width,
-      separator: separator,
-      separatorWidth: separatorWidth,
-      valueFormatter: valueFormatter,
-      label: label,
-        controller: controller
-    );
+        id: id,
+        type: TimeColumnType.custom,
+        minValue: minValue,
+        maxValue: maxValue,
+        defaultValue: defaultValue,
+        width: width,
+        separator: separator,
+        separatorWidth: separatorWidth,
+        valueFormatter: valueFormatter,
+        label: label,
+        controller: controller);
   }
 
   /// Factory for creating a label column (non-scrollable text)
